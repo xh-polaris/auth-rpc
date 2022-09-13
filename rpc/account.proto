@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package account;
+
+option go_package='./pb';
+
+message GetUserReq {
+  string type = 1;
+  repeated string options = 2;
+}
+
+message GetUserResp {
+  int64 userId = 1;
+}
+
+service Account {
+  rpc getUser(GetUserReq) returns (GetUserResp);
+}
