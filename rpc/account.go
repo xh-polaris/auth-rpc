@@ -4,16 +4,16 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/foliet/account/rpc/internal/config"
-	"github.com/foliet/account/rpc/internal/server"
-	"github.com/foliet/account/rpc/internal/svc"
-	"github.com/foliet/account/rpc/pb"
-
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	"github.com/foliet/account/rpc/internal/config"
+	"github.com/foliet/account/rpc/internal/server"
+	"github.com/foliet/account/rpc/internal/svc"
+	"github.com/foliet/account/rpc/pb"
 )
 
 var configFile = flag.String("f", "etc/dev.yaml", "the config file")

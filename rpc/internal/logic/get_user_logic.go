@@ -2,14 +2,15 @@ package logic
 
 import (
 	"context"
+
+	"github.com/zeromicro/go-zero/core/logx"
+	"github.com/zeromicro/go-zero/core/stores/sqlx"
+	"golang.org/x/crypto/bcrypt"
+
 	"github.com/foliet/account/common/errorx"
 	"github.com/foliet/account/model"
 	"github.com/foliet/account/rpc/internal/svc"
 	"github.com/foliet/account/rpc/pb"
-	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"golang.org/x/crypto/bcrypt"
-
-	"github.com/zeromicro/go-zero/core/logx"
 )
 
 type GetUserLogic struct {
@@ -58,6 +59,7 @@ func getByPassword(options []string, l *GetUserLogic) (int64, error) {
 	typeValue := options[1]
 	password := options[2]
 	userModel := l.svcCtx.UserModel
+
 	var user *model.User
 	var err error
 	if passwordType == PhonePasswordType {
@@ -67,6 +69,7 @@ func getByPassword(options []string, l *GetUserLogic) (int64, error) {
 	} else {
 		return 0, errorx.ErrInvalidArgument
 	}
+
 	switch err {
 	case nil:
 		if bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)) != nil {
@@ -88,6 +91,7 @@ func getByPassword(options []string, l *GetUserLogic) (int64, error) {
 		if errGen != nil {
 			return 0, errGen
 		}
+
 		if passwordType == PhonePasswordType {
 			user = &model.User{
 				Phone:    typeValue,
@@ -101,15 +105,18 @@ func getByPassword(options []string, l *GetUserLogic) (int64, error) {
 				Password: string(hashPassword),
 			}
 		}
+
 		result, errInsert := userModel.Insert(l.ctx, user)
 		if errInsert != nil {
 			return 0, errInsert
 		}
 		return result.LastInsertId()
 	}
+
 	return user.Id, nil
 }
 
 func getByWechat(options []string, l *GetUserLogic) (int64, error) {
+	//TODO(feat) Implement wechat login
 	return 0, nil
 }

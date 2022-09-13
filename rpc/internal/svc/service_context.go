@@ -1,10 +1,11 @@
 package svc
 
 import (
-	"github.com/foliet/account/model"
-	"github.com/foliet/account/rpc/internal/config"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
+
+	"github.com/foliet/account/model"
+	"github.com/foliet/account/rpc/internal/config"
 )
 
 type ServiceContext struct {
