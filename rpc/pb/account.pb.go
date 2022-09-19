@@ -20,17 +20,19 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type GetUserReq struct {
+type SignInReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type    string   `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Options []string `protobuf:"bytes,2,rep,name=options,proto3" json:"options,omitempty"`
+	AuthType  string   `protobuf:"bytes,1,opt,name=AuthType,proto3" json:"AuthType,omitempty"`
+	AuthValue string   `protobuf:"bytes,2,opt,name=AuthValue,proto3" json:"AuthValue,omitempty"`
+	Password  string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Options   []string `protobuf:"bytes,4,rep,name=options,proto3" json:"options,omitempty"`
 }
 
-func (x *GetUserReq) Reset() {
-	*x = GetUserReq{}
+func (x *SignInReq) Reset() {
+	*x = SignInReq{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_account_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -38,13 +40,13 @@ func (x *GetUserReq) Reset() {
 	}
 }
 
-func (x *GetUserReq) String() string {
+func (x *SignInReq) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserReq) ProtoMessage() {}
+func (*SignInReq) ProtoMessage() {}
 
-func (x *GetUserReq) ProtoReflect() protoreflect.Message {
+func (x *SignInReq) ProtoReflect() protoreflect.Message {
 	mi := &file_account_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -56,26 +58,40 @@ func (x *GetUserReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserReq.ProtoReflect.Descriptor instead.
-func (*GetUserReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use SignInReq.ProtoReflect.Descriptor instead.
+func (*SignInReq) Descriptor() ([]byte, []int) {
 	return file_account_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *GetUserReq) GetType() string {
+func (x *SignInReq) GetAuthType() string {
 	if x != nil {
-		return x.Type
+		return x.AuthType
 	}
 	return ""
 }
 
-func (x *GetUserReq) GetOptions() []string {
+func (x *SignInReq) GetAuthValue() string {
+	if x != nil {
+		return x.AuthValue
+	}
+	return ""
+}
+
+func (x *SignInReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+func (x *SignInReq) GetOptions() []string {
 	if x != nil {
 		return x.Options
 	}
 	return nil
 }
 
-type GetUserResp struct {
+type SignInResp struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -83,8 +99,8 @@ type GetUserResp struct {
 	UserId int64 `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
 }
 
-func (x *GetUserResp) Reset() {
-	*x = GetUserResp{}
+func (x *SignInResp) Reset() {
+	*x = SignInResp{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_account_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -92,13 +108,13 @@ func (x *GetUserResp) Reset() {
 	}
 }
 
-func (x *GetUserResp) String() string {
+func (x *SignInResp) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUserResp) ProtoMessage() {}
+func (*SignInResp) ProtoMessage() {}
 
-func (x *GetUserResp) ProtoReflect() protoreflect.Message {
+func (x *SignInResp) ProtoReflect() protoreflect.Message {
 	mi := &file_account_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -110,34 +126,245 @@ func (x *GetUserResp) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUserResp.ProtoReflect.Descriptor instead.
-func (*GetUserResp) Descriptor() ([]byte, []int) {
+// Deprecated: Use SignInResp.ProtoReflect.Descriptor instead.
+func (*SignInResp) Descriptor() ([]byte, []int) {
 	return file_account_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetUserResp) GetUserId() int64 {
+func (x *SignInResp) GetUserId() int64 {
 	if x != nil {
 		return x.UserId
 	}
 	return 0
 }
 
+type SetPasswordReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId   int64  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+}
+
+func (x *SetPasswordReq) Reset() {
+	*x = SetPasswordReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_account_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetPasswordReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetPasswordReq) ProtoMessage() {}
+
+func (x *SetPasswordReq) ProtoReflect() protoreflect.Message {
+	mi := &file_account_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetPasswordReq.ProtoReflect.Descriptor instead.
+func (*SetPasswordReq) Descriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *SetPasswordReq) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *SetPasswordReq) GetPassword() string {
+	if x != nil {
+		return x.Password
+	}
+	return ""
+}
+
+type SetPasswordResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SetPasswordResp) Reset() {
+	*x = SetPasswordResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_account_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetPasswordResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetPasswordResp) ProtoMessage() {}
+
+func (x *SetPasswordResp) ProtoReflect() protoreflect.Message {
+	mi := &file_account_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetPasswordResp.ProtoReflect.Descriptor instead.
+func (*SetPasswordResp) Descriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{3}
+}
+
+type SendVerifyCodeReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	AuthType  string `protobuf:"bytes,1,opt,name=AuthType,proto3" json:"AuthType,omitempty"`
+	AuthValue string `protobuf:"bytes,2,opt,name=AuthValue,proto3" json:"AuthValue,omitempty"`
+}
+
+func (x *SendVerifyCodeReq) Reset() {
+	*x = SendVerifyCodeReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_account_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendVerifyCodeReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendVerifyCodeReq) ProtoMessage() {}
+
+func (x *SendVerifyCodeReq) ProtoReflect() protoreflect.Message {
+	mi := &file_account_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendVerifyCodeReq.ProtoReflect.Descriptor instead.
+func (*SendVerifyCodeReq) Descriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *SendVerifyCodeReq) GetAuthType() string {
+	if x != nil {
+		return x.AuthType
+	}
+	return ""
+}
+
+func (x *SendVerifyCodeReq) GetAuthValue() string {
+	if x != nil {
+		return x.AuthValue
+	}
+	return ""
+}
+
+type SendVerifyCodeResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SendVerifyCodeResp) Reset() {
+	*x = SendVerifyCodeResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_account_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendVerifyCodeResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendVerifyCodeResp) ProtoMessage() {}
+
+func (x *SendVerifyCodeResp) ProtoReflect() protoreflect.Message {
+	mi := &file_account_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendVerifyCodeResp.ProtoReflect.Descriptor instead.
+func (*SendVerifyCodeResp) Descriptor() ([]byte, []int) {
+	return file_account_proto_rawDescGZIP(), []int{5}
+}
+
 var File_account_proto protoreflect.FileDescriptor
 
 var file_account_proto_rawDesc = []byte{
 	0x0a, 0x0d, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12,
-	0x07, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x3a, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x55,
-	0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6f, 0x70,
-	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x70, 0x74,
-	0x69, 0x6f, 0x6e, 0x73, 0x22, 0x25, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52,
+	0x07, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x22, 0x7b, 0x0a, 0x09, 0x53, 0x69, 0x67, 0x6e,
+	0x49, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x1a, 0x0a, 0x08, 0x41, 0x75, 0x74, 0x68, 0x54, 0x79, 0x70,
+	0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x41, 0x75, 0x74, 0x68, 0x54, 0x79, 0x70,
+	0x65, 0x12, 0x1c, 0x0a, 0x09, 0x41, 0x75, 0x74, 0x68, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x41, 0x75, 0x74, 0x68, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x12,
+	0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x6f,
+	0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x04, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x70,
+	0x74, 0x69, 0x6f, 0x6e, 0x73, 0x22, 0x24, 0x0a, 0x0a, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x52,
 	0x65, 0x73, 0x70, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x32, 0x3f, 0x0a, 0x07, 0x41,
-	0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x34, 0x0a, 0x07, 0x67, 0x65, 0x74, 0x55, 0x73, 0x65,
-	0x72, 0x12, 0x13, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x47, 0x65, 0x74, 0x55,
-	0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74,
-	0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x42, 0x06, 0x5a, 0x04,
-	0x2e, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x44, 0x0a, 0x0e, 0x53,
+	0x65, 0x74, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x52, 0x65, 0x71, 0x12, 0x16, 0x0a,
+	0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75,
+	0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
+	0x64, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x65, 0x74, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64,
+	0x52, 0x65, 0x73, 0x70, 0x22, 0x4d, 0x0a, 0x11, 0x53, 0x65, 0x6e, 0x64, 0x56, 0x65, 0x72, 0x69,
+	0x66, 0x79, 0x43, 0x6f, 0x64, 0x65, 0x52, 0x65, 0x71, 0x12, 0x1a, 0x0a, 0x08, 0x41, 0x75, 0x74,
+	0x68, 0x54, 0x79, 0x70, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x41, 0x75, 0x74,
+	0x68, 0x54, 0x79, 0x70, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x41, 0x75, 0x74, 0x68, 0x56, 0x61, 0x6c,
+	0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x41, 0x75, 0x74, 0x68, 0x56, 0x61,
+	0x6c, 0x75, 0x65, 0x22, 0x14, 0x0a, 0x12, 0x53, 0x65, 0x6e, 0x64, 0x56, 0x65, 0x72, 0x69, 0x66,
+	0x79, 0x43, 0x6f, 0x64, 0x65, 0x52, 0x65, 0x73, 0x70, 0x32, 0xc9, 0x01, 0x0a, 0x07, 0x41, 0x63,
+	0x63, 0x6f, 0x75, 0x6e, 0x74, 0x12, 0x31, 0x0a, 0x06, 0x73, 0x69, 0x67, 0x6e, 0x49, 0x6e, 0x12,
+	0x12, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x53, 0x69, 0x67, 0x6e, 0x49, 0x6e,
+	0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x53, 0x69,
+	0x67, 0x6e, 0x49, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x40, 0x0a, 0x0b, 0x73, 0x65, 0x74, 0x50,
+	0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x12, 0x17, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e,
+	0x74, 0x2e, 0x53, 0x65, 0x74, 0x50, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x52, 0x65, 0x71,
+	0x1a, 0x18, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x53, 0x65, 0x74, 0x50, 0x61,
+	0x73, 0x73, 0x77, 0x6f, 0x72, 0x64, 0x52, 0x65, 0x73, 0x70, 0x12, 0x49, 0x0a, 0x0e, 0x73, 0x65,
+	0x6e, 0x64, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x1a, 0x2e, 0x61,
+	0x63, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x56, 0x65, 0x72, 0x69, 0x66,
+	0x79, 0x43, 0x6f, 0x64, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x1b, 0x2e, 0x61, 0x63, 0x63, 0x6f, 0x75,
+	0x6e, 0x74, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x43, 0x6f, 0x64,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -152,16 +379,24 @@ func file_account_proto_rawDescGZIP() []byte {
 	return file_account_proto_rawDescData
 }
 
-var file_account_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_account_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_account_proto_goTypes = []interface{}{
-	(*GetUserReq)(nil),  // 0: account.GetUserReq
-	(*GetUserResp)(nil), // 1: account.GetUserResp
+	(*SignInReq)(nil),          // 0: account.SignInReq
+	(*SignInResp)(nil),         // 1: account.SignInResp
+	(*SetPasswordReq)(nil),     // 2: account.SetPasswordReq
+	(*SetPasswordResp)(nil),    // 3: account.SetPasswordResp
+	(*SendVerifyCodeReq)(nil),  // 4: account.SendVerifyCodeReq
+	(*SendVerifyCodeResp)(nil), // 5: account.SendVerifyCodeResp
 }
 var file_account_proto_depIdxs = []int32{
-	0, // 0: account.Account.getUser:input_type -> account.GetUserReq
-	1, // 1: account.Account.getUser:output_type -> account.GetUserResp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
+	0, // 0: account.Account.signIn:input_type -> account.SignInReq
+	2, // 1: account.Account.setPassword:input_type -> account.SetPasswordReq
+	4, // 2: account.Account.sendVerifyCode:input_type -> account.SendVerifyCodeReq
+	1, // 3: account.Account.signIn:output_type -> account.SignInResp
+	3, // 4: account.Account.setPassword:output_type -> account.SetPasswordResp
+	5, // 5: account.Account.sendVerifyCode:output_type -> account.SendVerifyCodeResp
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -174,7 +409,7 @@ func file_account_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_account_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserReq); i {
+			switch v := v.(*SignInReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -186,7 +421,55 @@ func file_account_proto_init() {
 			}
 		}
 		file_account_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetUserResp); i {
+			switch v := v.(*SignInResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_account_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetPasswordReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_account_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetPasswordResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_account_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendVerifyCodeReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_account_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendVerifyCodeResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -204,7 +487,7 @@ func file_account_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_account_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

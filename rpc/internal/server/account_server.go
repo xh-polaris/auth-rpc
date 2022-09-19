@@ -22,7 +22,17 @@ func NewAccountServer(svcCtx *svc.ServiceContext) *AccountServer {
 	}
 }
 
-func (s *AccountServer) GetUser(ctx context.Context, in *pb.GetUserReq) (*pb.GetUserResp, error) {
-	l := logic.NewGetUserLogic(ctx, s.svcCtx)
-	return l.GetUser(in)
+func (s *AccountServer) SignIn(ctx context.Context, in *pb.SignInReq) (*pb.SignInResp, error) {
+	l := logic.NewSignInLogic(ctx, s.svcCtx)
+	return l.SignIn(in)
+}
+
+func (s *AccountServer) SetPassword(ctx context.Context, in *pb.SetPasswordReq) (*pb.SetPasswordResp, error) {
+	l := logic.NewSetPasswordLogic(ctx, s.svcCtx)
+	return l.SetPassword(in)
+}
+
+func (s *AccountServer) SendVerifyCode(ctx context.Context, in *pb.SendVerifyCodeReq) (*pb.SendVerifyCodeResp, error) {
+	l := logic.NewSendVerifyCodeLogic(ctx, s.svcCtx)
+	return l.SendVerifyCode(in)
 }

@@ -1,8 +1,11 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
+	"github.com/zeromicro/go-zero/core/logx"
+	"google.golang.org/grpc/status"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -16,7 +19,7 @@ import (
 	"github.com/foliet/account/rpc/pb"
 )
 
-var configFile = flag.String("f", "etc/dev.yaml", "the config file")
+var configFile = flag.String("f", "etc/account.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -33,7 +36,16 @@ func main() {
 		}
 	})
 	defer s.Stop()
-
+	s.AddUnaryInterceptors(func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		resp, err = handler(ctx, req)
+		if err != nil {
+			se, ok := status.FromError(err)
+			if !ok {
+				logx.Error(se)
+			}
+		}
+		return
+	})
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
 	s.Start()
 }

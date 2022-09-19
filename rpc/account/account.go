@@ -13,11 +13,17 @@ import (
 )
 
 type (
-	GetUserReq  = pb.GetUserReq
-	GetUserResp = pb.GetUserResp
+	SendVerifyCodeReq  = pb.SendVerifyCodeReq
+	SendVerifyCodeResp = pb.SendVerifyCodeResp
+	SetPasswordReq     = pb.SetPasswordReq
+	SetPasswordResp    = pb.SetPasswordResp
+	SignInReq          = pb.SignInReq
+	SignInResp         = pb.SignInResp
 
 	Account interface {
-		GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error)
+		SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInResp, error)
+		SetPassword(ctx context.Context, in *SetPasswordReq, opts ...grpc.CallOption) (*SetPasswordResp, error)
+		SendVerifyCode(ctx context.Context, in *SendVerifyCodeReq, opts ...grpc.CallOption) (*SendVerifyCodeResp, error)
 	}
 
 	defaultAccount struct {
@@ -31,7 +37,17 @@ func NewAccount(cli zrpc.Client) Account {
 	}
 }
 
-func (m *defaultAccount) GetUser(ctx context.Context, in *GetUserReq, opts ...grpc.CallOption) (*GetUserResp, error) {
+func (m *defaultAccount) SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInResp, error) {
 	client := pb.NewAccountClient(m.cli.Conn())
-	return client.GetUser(ctx, in, opts...)
+	return client.SignIn(ctx, in, opts...)
+}
+
+func (m *defaultAccount) SetPassword(ctx context.Context, in *SetPasswordReq, opts ...grpc.CallOption) (*SetPasswordResp, error) {
+	client := pb.NewAccountClient(m.cli.Conn())
+	return client.SetPassword(ctx, in, opts...)
+}
+
+func (m *defaultAccount) SendVerifyCode(ctx context.Context, in *SendVerifyCodeReq, opts ...grpc.CallOption) (*SendVerifyCodeResp, error) {
+	client := pb.NewAccountClient(m.cli.Conn())
+	return client.SendVerifyCode(ctx, in, opts...)
 }

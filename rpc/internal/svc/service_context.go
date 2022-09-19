@@ -9,16 +9,18 @@ import (
 )
 
 type ServiceContext struct {
-	Config    config.Config
-	UserModel model.UserModel
-	Redis     *redis.Redis
+	Config        config.Config
+	UserModel     model.UserModel
+	UserAuthModel model.UserAuthModel
+	Redis         *redis.Redis
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	sqlConn := sqlx.NewMysql(c.Mysql.Datasource)
 	return &ServiceContext{
-		Config:    c,
-		UserModel: model.NewUserModel(sqlConn),
-		Redis:     c.Redis.NewRedis(),
+		Config:        c,
+		UserModel:     model.NewUserModel(sqlConn),
+		UserAuthModel: model.NewUserAuthModel(sqlConn),
+		Redis:         c.Redis.NewRedis(),
 	}
 }

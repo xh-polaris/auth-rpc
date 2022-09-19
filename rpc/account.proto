@@ -4,15 +4,33 @@ package account;
 
 option go_package='./pb';
 
-message GetUserReq {
-  string type = 1;
-  repeated string options = 2;
+message SignInReq {
+  string AuthType = 1;
+  string AuthValue = 2;
+  string password = 3;
+  repeated string options = 4;
 }
 
-message GetUserResp {
+message SignInResp {
   int64 userId = 1;
 }
 
+message SetPasswordReq {
+  int64 userId = 1;
+  string password = 2;
+}
+
+message SetPasswordResp {}
+
+message SendVerifyCodeReq {
+  string AuthType = 1;
+  string AuthValue = 2;
+}
+
+message SendVerifyCodeResp {}
+
 service Account {
-  rpc getUser(GetUserReq) returns (GetUserResp);
+  rpc signIn(SignInReq) returns (SignInResp);
+  rpc setPassword(SetPasswordReq) returns (SetPasswordResp);
+  rpc sendVerifyCode(SendVerifyCodeReq) returns (SendVerifyCodeResp);
 }
