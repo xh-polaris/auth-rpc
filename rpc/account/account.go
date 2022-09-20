@@ -6,7 +6,7 @@ package account
 import (
 	"context"
 
-	"github.com/foliet/account/rpc/pb"
+	"github.com/xh-polaris/account-svc/rpc/pb"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

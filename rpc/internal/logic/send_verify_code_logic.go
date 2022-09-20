@@ -2,11 +2,11 @@ package logic
 
 import (
 	"context"
-	"github.com/foliet/account/model"
-	"github.com/foliet/account/rpc/errorx"
+	"github.com/xh-polaris/account-svc/model"
+	"github.com/xh-polaris/account-svc/rpc/errorx"
 
-	"github.com/foliet/account/rpc/internal/svc"
-	"github.com/foliet/account/rpc/pb"
+	"github.com/xh-polaris/account-svc/rpc/internal/svc"
+	"github.com/xh-polaris/account-svc/rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )

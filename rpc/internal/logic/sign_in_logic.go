@@ -7,14 +7,14 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/foliet/account/rpc/errorx"
+	"github.com/xh-polaris/account-svc/rpc/errorx"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/foliet/account/model"
-	"github.com/foliet/account/rpc/internal/svc"
-	"github.com/foliet/account/rpc/pb"
+	"github.com/xh-polaris/account-svc/model"
+	"github.com/xh-polaris/account-svc/rpc/internal/svc"
+	"github.com/xh-polaris/account-svc/rpc/pb"
 )
 
 type SignInLogic struct {

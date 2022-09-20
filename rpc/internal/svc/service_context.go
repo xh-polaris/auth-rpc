@@ -4,8 +4,8 @@ import (
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 
-	"github.com/foliet/account/model"
-	"github.com/foliet/account/rpc/internal/config"
+	"github.com/xh-polaris/account-svc/model"
+	"github.com/xh-polaris/account-svc/rpc/internal/config"
 )
 
 type ServiceContext struct {

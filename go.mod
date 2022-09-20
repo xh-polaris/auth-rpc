@@ -1,4 +1,4 @@
-module github.com/foliet/account
+module github.com/xh-polaris/account-svc
 
 go 1.18
 
