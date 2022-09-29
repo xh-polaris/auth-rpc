@@ -38,11 +38,11 @@ func NewSignInLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignInLogi
 func (l *SignInLogic) SignIn(in *pb.SignInReq) (resp *pb.SignInResp, err error) {
 	resp = &pb.SignInResp{}
 	switch in.AuthType {
-	case model.EmailType:
+	case model.EmailLoginType:
 		fallthrough
-	case model.PhoneType:
+	case model.PhoneLoginType:
 		resp.UserId, err = l.signInByPassword(in)
-	case model.WechatType:
+	case model.WechatLoginType:
 		resp.UserId, err = l.signInByWechat(in)
 	default:
 		return nil, errorx.ErrInvalidArgument
@@ -62,7 +62,7 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (userId int64, err erro
 	if err != nil {
 		return
 	}
-	userContact, err := userAuthModel.FindOneByAuthTypeAuthValue(l.ctx, in.AuthType, in.AuthValue)
+	userAuth, err := userAuthModel.FindOneByAuthTypeAuthValue(l.ctx, in.AuthType, in.AuthValue)
 
 	switch err {
 	case nil:
@@ -86,11 +86,11 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (userId int64, err erro
 	}
 
 	if ok {
-		return userContact.UserId, nil
+		return userAuth.UserId, nil
 	}
 
 	// 验证码未通过，尝试密码登录
-	user, err := userModel.FindOne(l.ctx, userContact.UserId)
+	user, err := userModel.FindOne(l.ctx, userAuth.UserId)
 	if err != nil {
 		return
 	} else if !user.Password.Valid {

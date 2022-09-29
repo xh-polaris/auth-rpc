@@ -28,9 +28,9 @@ func NewSendVerifyCodeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Se
 func (l *SendVerifyCodeLogic) SendVerifyCode(in *pb.SendVerifyCodeReq) (*pb.SendVerifyCodeResp, error) {
 	var verifyCode string
 	switch in.AuthType {
-	case model.PhoneType:
+	case model.PhoneLoginType:
 		verifyCode = "1234"
-	case model.EmailType:
+	case model.EmailLoginType:
 		verifyCode = "6666"
 	default:
 		return nil, errorx.ErrInvalidArgument

@@ -5,9 +5,9 @@ import "github.com/zeromicro/go-zero/core/stores/sqlx"
 var _ UserAuthModel = (*customUserAuthModel)(nil)
 
 const (
-	PhoneType  = "phone"
-	EmailType  = "email"
-	WechatType = "wechat"
+	PhoneLoginType  = "phone"
+	EmailLoginType  = "email"
+	WechatLoginType = "wechat"
 )
 
 type (
