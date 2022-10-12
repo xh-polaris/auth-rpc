@@ -8,7 +8,7 @@ import (
 type Config struct {
 	zrpc.RpcServerConf
 	Mongo struct {
-		Url string
+		URL string
 		DB  string
 	}
 	CacheConf   cache.CacheConf

@@ -27,7 +27,7 @@ func NewSignInLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignInLogi
 }
 
 func (l *SignInLogic) SignIn(req *types.SignInReq) (resp *types.SignInResp, err error) {
-	rpcResp, err := l.svcCtx.AccountRpc.SignIn(l.ctx, &pb.SignInReq{
+	rpcResp, err := l.svcCtx.AccountRPC.SignIn(l.ctx, &pb.SignInReq{
 		AuthType:  req.AuthType,
 		AuthValue: req.AuthValue,
 		Password:  req.Password,

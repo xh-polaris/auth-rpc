@@ -25,7 +25,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 	return &ServiceContext{
 		Config:    c,
-		UserModel: model.NewUserModel(monc.MustNewModel(c.Mongo.Url, c.Mongo.DB, model.UserCollectionName, c.CacheConf)),
+		UserModel: model.NewUserModel(monc.MustNewModel(c.Mongo.URL, c.Mongo.DB, model.UserCollectionName, c.CacheConf)),
 		Redis:     c.Redis.NewRedis(),
 		MiniProgram: wechat.NewWechat().GetMiniProgram(&mpConfig.Config{
 			AppID:     c.MiniProgram.AppID,

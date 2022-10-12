@@ -8,12 +8,12 @@ import (
 
 type ServiceContext struct {
 	Config     config.Config
-	AccountRpc account.Account
+	AccountRPC account.Account
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
 		Config:     c,
-		AccountRpc: account.NewAccount(zrpc.MustNewClient(c.AccountRpc)),
+		AccountRPC: account.NewAccount(zrpc.MustNewClient(c.AccountRPC)),
 	}
 }
