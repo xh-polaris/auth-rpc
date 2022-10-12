@@ -5,26 +5,26 @@ package account;
 option go_package='./pb';
 
 message SignInReq {
-  string AuthType = 1;
-  string AuthValue = 2;
+  string authType = 1;
+  string authValue = 2;
   string password = 3;
   repeated string options = 4;
 }
 
 message SignInResp {
-  int64 userId = 1;
+  string userId = 1;
 }
 
 message SetPasswordReq {
-  int64 userId = 1;
+  string userId = 1;
   string password = 2;
 }
 
 message SetPasswordResp {}
 
 message SendVerifyCodeReq {
-  string AuthType = 1;
-  string AuthValue = 2;
+  string authType = 1;
+  string authValue = 2;
 }
 
 message SendVerifyCodeResp {}

@@ -1,0 +1,35 @@
+syntax = "v1"
+info (
+	title: "api"
+)
+type Status {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
+type SignInReq {
+	AuthType  string   `json:"authType,options=phone|email|wechat"`
+	AuthValue string   `json:"authValue"`
+	Password  string   `json:"password,optional"`
+	Options   []string `json:"options,optional"`
+}
+
+type SignInResp {
+	Status
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+}
+
+type SetPasswordReq {
+	Password string `json:"password"`
+}
+
+@server(
+	jwt: Auth
+	prefix: api
+)
+service account {
+	@handler SignIn
+	post /sign_in (SignInReq) returns (SignInResp)
+	@handler SetPassword
+	post /set_password
+}

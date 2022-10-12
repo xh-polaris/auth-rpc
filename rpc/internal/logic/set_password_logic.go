@@ -40,10 +40,7 @@ func (l *SetPasswordLogic) SetPassword(in *pb.SetPasswordReq) (*pb.SetPasswordRe
 	if err != nil {
 		return nil, err
 	}
-	err = user.Password.Scan(hashPassword)
-	if err != nil {
-		return nil, err
-	}
+	user.Password = string(hashPassword)
 	err = userModel.Update(l.ctx, user)
 	if err != nil {
 		return nil, err
