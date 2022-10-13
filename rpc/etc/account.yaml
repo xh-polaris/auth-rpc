@@ -1,0 +1,16 @@
+Name: account.rpc
+ListenOn: 0.0.0.0:8080
+Mode: dev
+Log:
+  Encoding: plain
+Mongo:
+  URL: $MONGO_URL
+  DB: $MONGO_DB
+CacheRedis:
+  -
+    Host: $CACHE_REDIS_HOST
+    Pass: $CACHE_REDIS_PASS
+Redis:
+  Host: $REDIS_HOST
+  Pass: $REDIS_PASS
+
