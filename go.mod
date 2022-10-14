@@ -3,7 +3,7 @@ module github.com/xh-polaris/account-svc
 go 1.18
 
 require (
-	github.com/alicebob/miniredis/v2 v2.22.0
+	github.com/alicebob/miniredis/v2 v2.23.0
 	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/golang/mock v1.6.0
 	github.com/silenceper/wechat/v2 v2.1.4
