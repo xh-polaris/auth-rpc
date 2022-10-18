@@ -32,8 +32,7 @@ func NewUserModel(conn *monc.Model) UserModel {
 
 func (m *customUserModel) FindOneByAuth(ctx context.Context, auth Auth) (*User, error) {
 	var data User
-	key := prefixUserCacheKey + data.ID.Hex()
-	err := m.conn.FindOne(ctx, key, &data, bson.M{"auth": auth})
+	err := m.conn.FindOneNoCache(ctx, &data, bson.M{"auth": auth})
 	switch err {
 	case nil:
 		return &data, nil

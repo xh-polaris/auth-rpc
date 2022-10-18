@@ -28,7 +28,7 @@ func newDefaultUserModel(conn *monc.Model) *defaultUserModel {
 }
 
 func (m *defaultUserModel) Insert(ctx context.Context, data *User) error {
-	if !data.ID.IsZero() {
+	if data.ID.IsZero() {
 		data.ID = primitive.NewObjectID()
 		data.CreateAt = time.Now()
 		data.UpdateAt = time.Now()
@@ -46,7 +46,7 @@ func (m *defaultUserModel) FindOne(ctx context.Context, id string) (*User, error
 	}
 
 	var data User
-	key := prefixUserCacheKey + data.ID.Hex()
+	key := prefixUserCacheKey + id
 	err = m.conn.FindOne(ctx, key, &data, bson.M{"_id": oid})
 	switch err {
 	case nil:
