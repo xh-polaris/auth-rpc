@@ -23,13 +23,28 @@ type SetPasswordReq {
 	Password string `json:"password"`
 }
 
-@server(
+type SendVerifyCodeReq {
+	AuthType  string `json:"authType"`
+	AuthValue string `json:"authValue"`
+}
+
+@server (
+	prefix: api
+)
+
+service account {
+	@handler SendVerifyCode
+	post /send_verify_code (SendVerifyCodeReq)
+}
+
+@server (
 	jwt: Auth
 	prefix: api
 )
+
 service account {
 	@handler SignIn
 	post /sign_in (SignInReq) returns (SignInResp)
 	@handler SetPassword
-	post /set_password
+	post /set_password (SetPasswordReq)
 }

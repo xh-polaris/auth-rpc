@@ -18,3 +18,12 @@ type SignInResp struct {
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 }
+
+type SetPasswordReq struct {
+	Password string `json:"password"`
+}
+
+type SendVerifyCodeReq struct {
+	AuthType  string `json:"authType"`
+	AuthValue string `json:"authValue"`
+}

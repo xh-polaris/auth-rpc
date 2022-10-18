@@ -13,9 +13,25 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 	server.AddRoutes(
 		[]rest.Route{
 			{
-				Method:  http.MethodGet,
-				Path:    "/signin",
+				Method:  http.MethodPost,
+				Path:    "/send_verify_code",
+				Handler: SendVerifyCodeHandler(serverCtx),
+			},
+		},
+		rest.WithPrefix("/api"),
+	)
+
+	server.AddRoutes(
+		[]rest.Route{
+			{
+				Method:  http.MethodPost,
+				Path:    "/sign_in",
 				Handler: SignInHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/set_password",
+				Handler: SetPasswordHandler(serverCtx),
 			},
 		},
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

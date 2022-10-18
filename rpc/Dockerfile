@@ -1,10 +1,10 @@
-FROM golang:1.18.6-alpine3.16 AS builder
+FROM golang:alpine AS builder
 
 LABEL stage=gobuilder
 
 ENV CGO_ENABLED 0
 ENV GOPROXY https://goproxy.cn,direct
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk update --no-cache && apk add --no-cache tzdata
 
@@ -14,6 +14,7 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
+COPY ./rpc/etc /app/etc
 RUN go build -ldflags="-s -w" -o /app/rpc ./rpc
 
 
@@ -25,5 +26,6 @@ ENV TZ Asia/Shanghai
 
 WORKDIR /app
 COPY --from=builder /app/rpc /app/rpc
+COPY --from=builder /app/etc /app/etc
 
-CMD ["./rpc"]
+CMD ["./rpc", "-f", "etc/account.yaml"]
