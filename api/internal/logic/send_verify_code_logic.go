@@ -23,14 +23,14 @@ func NewSendVerifyCodeLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Se
 	}
 }
 
-func (l *SendVerifyCodeLogic) SendVerifyCode(req *types.SendVerifyCodeReq) error {
+func (l *SendVerifyCodeLogic) SendVerifyCode(req *types.SendVerifyCodeReq) (*types.SendVerifyCodeResp, error) {
 	_, err := l.svcCtx.AccountRPC.SendVerifyCode(l.ctx, &pb.SendVerifyCodeReq{
 		AuthType:  req.AuthType,
 		AuthValue: req.AuthValue,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return nil, nil
 }

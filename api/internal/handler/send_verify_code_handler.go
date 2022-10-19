@@ -18,11 +18,11 @@ func SendVerifyCodeHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewSendVerifyCodeLogic(r.Context(), svcCtx)
-		err := l.SendVerifyCode(&req)
+		resp, err := l.SendVerifyCode(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
-			httpx.Ok(w)
+			httpx.OkJson(w, resp)
 		}
 	}
 }

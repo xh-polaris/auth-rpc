@@ -24,15 +24,15 @@ func NewSetPasswordLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SetPa
 	}
 }
 
-func (l *SetPasswordLogic) SetPassword(req *types.SetPasswordReq) error {
+func (l *SetPasswordLogic) SetPassword(req *types.SetPasswordReq) (*types.SetPasswordResp, error) {
 	userId := l.ctx.Value("userId").(string)
 	_, err := l.svcCtx.AccountRPC.SetPassword(l.ctx, &pb.SetPasswordReq{
 		UserId:   userId,
 		Password: req.Password,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return nil, nil
 }

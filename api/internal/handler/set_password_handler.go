@@ -18,11 +18,11 @@ func SetPasswordHandler(svcCtx *svc.ServiceContext) http.HandlerFunc {
 		}
 
 		l := logic.NewSetPasswordLogic(r.Context(), svcCtx)
-		err := l.SetPassword(&req)
+		resp, err := l.SetPassword(&req)
 		if err != nil {
 			httpx.Error(w, err)
 		} else {
-			httpx.Ok(w)
+			httpx.OkJson(w, resp)
 		}
 	}
 }

@@ -14,7 +14,7 @@ type SignInReq {
 }
 
 type SignInResp {
-	Status
+	Status       Status `json:"status"`
 	AccessToken  string `json:"accessToken"`
 	AccessExpire int64  `json:"accessExpire"`
 }
@@ -23,9 +23,17 @@ type SetPasswordReq {
 	Password string `json:"password"`
 }
 
+type SetPasswordResp {
+	Status Status `json:"status"`
+}
+
 type SendVerifyCodeReq {
 	AuthType  string `json:"authType"`
 	AuthValue string `json:"authValue"`
+}
+
+type SendVerifyCodeResp {
+	Status Status `json:"status"`
 }
 
 @server (
@@ -34,7 +42,7 @@ type SendVerifyCodeReq {
 
 service account {
 	@handler SendVerifyCode
-	post /send_verify_code (SendVerifyCodeReq)
+	post /send_verify_code (SendVerifyCodeReq) returns (SendVerifyCodeResp)
 }
 
 @server (
@@ -46,5 +54,5 @@ service account {
 	@handler SignIn
 	post /sign_in (SignInReq) returns (SignInResp)
 	@handler SetPassword
-	post /set_password (SetPasswordReq)
+	post /set_password (SetPasswordReq) returns (SetPasswordResp)
 }
