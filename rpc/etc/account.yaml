@@ -13,4 +13,7 @@ CacheRedis:
 Redis:
   Host: $REDIS_HOST
   Pass: $REDIS_PASS
+MiniProgram:
+  AppID: $APP_ID
+  AppSecret: $APP_SECRET
 
