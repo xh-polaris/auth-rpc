@@ -58,6 +58,7 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	auth := model.Auth{
 		Type:  in.AuthType,
 		Value: in.AuthValue,
@@ -70,6 +71,7 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 		if !ok {
 			return "", errorx.ErrNoSuchUser
 		}
+
 		user = &model.User{Auth: []model.Auth{auth}}
 		err := userModel.Insert(l.ctx, user)
 		if err != nil {
