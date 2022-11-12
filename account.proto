@@ -6,9 +6,9 @@ option go_package='./pb';
 
 message SignInReq {
   string authType = 1;
-  string authValue = 2;
+  string authId = 2;
   string password = 3;
-  repeated string options = 4;
+  repeated string params = 4;
 }
 
 message SignInResp {

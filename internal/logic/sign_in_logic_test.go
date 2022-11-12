@@ -2,16 +2,16 @@ package logic
 
 import (
 	"context"
-	"github.com/xh-polaris/account-rpc/v2/internal/config"
-	"github.com/xh-polaris/account-rpc/v2/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/v2/internal/model"
-	"github.com/xh-polaris/account-rpc/v2/internal/model/mockmodel"
-	"github.com/xh-polaris/account-rpc/v2/internal/svc"
-	"github.com/xh-polaris/account-rpc/v2/pb"
+	"github.com/alicebob/miniredis/v2"
+	"github.com/xh-polaris/account-rpc/v3/internal/config"
+	"github.com/xh-polaris/account-rpc/v3/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/v3/internal/model"
+	"github.com/xh-polaris/account-rpc/v3/internal/model/mockmodel"
+	"github.com/xh-polaris/account-rpc/v3/internal/svc"
+	"github.com/xh-polaris/account-rpc/v3/pb"
 	"testing"
 	"time"
 
-	"github.com/alicebob/miniredis/v2"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -35,10 +35,10 @@ func TestSignInLogic_SignIn(t *testing.T) {
 
 	t.Run("invalid auth type", func(t *testing.T) {
 		_, err := l.SignIn(&pb.SignInReq{
-			AuthType:  "gitlab",
-			AuthValue: "12306",
-			Password:  "",
-			Options:   nil,
+			AuthType: "gitlab",
+			AuthId:   "12306",
+			Password: "",
+			Params:   nil,
 		})
 		assert.Equal(t, errorx.ErrInvalidArgument, err)
 	})
@@ -53,10 +53,10 @@ func TestSignInLogic_SignIn(t *testing.T) {
 				Times(1)
 
 			_, err := l.SignIn(&pb.SignInReq{
-				AuthType:  "phone",
-				AuthValue: "12306",
-				Password:  "",
-				Options:   nil,
+				AuthType: "phone",
+				AuthId:   "12306",
+				Password: "",
+				Params:   nil,
 			})
 			assert.Equal(t, errorx.ErrNoSuchUser, err)
 		})
@@ -73,17 +73,17 @@ func TestSignInLogic_SignIn(t *testing.T) {
 				Times(2)
 
 			_, err := l.SignIn(&pb.SignInReq{
-				AuthType:  "phone",
-				AuthValue: "12306",
-				Password:  "",
-				Options:   nil,
+				AuthType: "phone",
+				AuthId:   "12306",
+				Password: "",
+				Params:   nil,
 			})
 			assert.Equal(t, errorx.ErrWrongPassword, err)
 			_, err = l.SignIn(&pb.SignInReq{
-				AuthType:  "phone",
-				AuthValue: "12306",
-				Password:  "123",
-				Options:   nil,
+				AuthType: "phone",
+				AuthId:   "12306",
+				Password: "123",
+				Params:   nil,
 			})
 			assert.Equal(t, errorx.ErrWrongPassword, err)
 		})
@@ -100,10 +100,10 @@ func TestSignInLogic_SignIn(t *testing.T) {
 				Times(1)
 
 			resp, err := l.SignIn(&pb.SignInReq{
-				AuthType:  "email",
-				AuthValue: "123@abc.com",
-				Password:  "123456Abc.",
-				Options:   nil,
+				AuthType: "email",
+				AuthId:   "123@abc.com",
+				Password: "123456Abc.",
+				Params:   nil,
 			})
 			assert.Nil(t, err)
 			assert.NotNil(t, resp)
@@ -129,18 +129,18 @@ func TestSignInLogic_SignIn(t *testing.T) {
 				Times(1)
 
 			resp, err := l.SignIn(&pb.SignInReq{
-				AuthType:  "email",
-				AuthValue: "123@abc.com",
-				Password:  "123321",
-				Options:   []string{"66666"},
+				AuthType: "email",
+				AuthId:   "123@abc.com",
+				Password: "123321",
+				Params:   []string{"66666"},
 			})
 			assert.Nil(t, err)
 			assert.NotNil(t, resp)
 			resp, err = l.SignIn(&pb.SignInReq{
-				AuthType:  "email",
-				AuthValue: "123@abc.com",
-				Password:  "241312",
-				Options:   []string{"66666"},
+				AuthType: "email",
+				AuthId:   "123@abc.com",
+				Password: "241312",
+				Params:   []string{"66666"},
 			})
 			assert.Nil(t, err)
 			assert.NotNil(t, resp)
@@ -149,10 +149,10 @@ func TestSignInLogic_SignIn(t *testing.T) {
 	t.Run("auth by wechat", func(t *testing.T) {
 		t.Run("invalid options", func(t *testing.T) {
 			_, err := l.SignIn(&pb.SignInReq{
-				AuthType:  "wechat",
-				AuthValue: "12138",
-				Password:  "",
-				Options:   nil,
+				AuthType: "wechat",
+				AuthId:   "12138",
+				Password: "",
+				Params:   nil,
 			})
 			assert.Equal(t, errorx.ErrInvalidArgument, err)
 		})

@@ -2,16 +2,16 @@ package logic
 
 import (
 	"context"
-	"github.com/xh-polaris/account-rpc/v2/internal/config"
-	"github.com/xh-polaris/account-rpc/v2/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/v2/internal/model"
-	"github.com/xh-polaris/account-rpc/v2/internal/model/mockmodel"
-	"github.com/xh-polaris/account-rpc/v2/internal/svc"
-	"github.com/xh-polaris/account-rpc/v2/pb"
+	"github.com/alicebob/miniredis/v2"
+	"github.com/xh-polaris/account-rpc/v3/internal/config"
+	"github.com/xh-polaris/account-rpc/v3/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/v3/internal/model"
+	"github.com/xh-polaris/account-rpc/v3/internal/model/mockmodel"
+	"github.com/xh-polaris/account-rpc/v3/internal/svc"
+	"github.com/xh-polaris/account-rpc/v3/pb"
 	"testing"
 	"time"
 
-	"github.com/alicebob/miniredis/v2"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/zeromicro/go-zero/core/stores/redis"
