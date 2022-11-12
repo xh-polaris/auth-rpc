@@ -4,8 +4,8 @@ import (
 	"github.com/silenceper/wechat/v2"
 	"github.com/silenceper/wechat/v2/miniprogram"
 	mpConfig "github.com/silenceper/wechat/v2/miniprogram/config"
-	"github.com/xh-polaris/account-rpc/internal/config"
-	"github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/v2/internal/config"
+	"github.com/xh-polaris/account-rpc/v2/internal/model"
 	"github.com/zeromicro/go-zero/core/stores/monc"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 )

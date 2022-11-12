@@ -2,12 +2,12 @@ package logic
 
 import (
 	"context"
-	"github.com/xh-polaris/account-rpc/internal/config"
-	"github.com/xh-polaris/account-rpc/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/internal/model"
-	"github.com/xh-polaris/account-rpc/internal/model/mockmodel"
-	"github.com/xh-polaris/account-rpc/internal/svc"
-	"github.com/xh-polaris/account-rpc/pb"
+	"github.com/xh-polaris/account-rpc/v2/internal/config"
+	"github.com/xh-polaris/account-rpc/v2/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/v2/internal/model"
+	"github.com/xh-polaris/account-rpc/v2/internal/model/mockmodel"
+	"github.com/xh-polaris/account-rpc/v2/internal/svc"
+	"github.com/xh-polaris/account-rpc/v2/pb"
 	"testing"
 	"time"
 

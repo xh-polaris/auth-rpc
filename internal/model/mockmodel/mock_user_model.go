@@ -6,7 +6,7 @@ package mockmodel
 
 import (
 	context "context"
-	"github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/v2/internal/model"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
