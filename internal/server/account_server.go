@@ -6,9 +6,9 @@ package server
 import (
 	"context"
 
-	"github.com/xh-polaris/account-rpc/v3/internal/logic"
-	"github.com/xh-polaris/account-rpc/v3/internal/svc"
-	"github.com/xh-polaris/account-rpc/v3/pb"
+	"github.com/xh-polaris/account-rpc/internal/logic"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
 )
 
 type AccountServer struct {

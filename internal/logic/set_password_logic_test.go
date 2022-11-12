@@ -3,12 +3,12 @@ package logic
 import (
 	"context"
 	"github.com/alicebob/miniredis/v2"
-	"github.com/xh-polaris/account-rpc/v3/internal/config"
-	"github.com/xh-polaris/account-rpc/v3/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/v3/internal/model"
-	"github.com/xh-polaris/account-rpc/v3/internal/model/mockmodel"
-	"github.com/xh-polaris/account-rpc/v3/internal/svc"
-	"github.com/xh-polaris/account-rpc/v3/pb"
+	"github.com/xh-polaris/account-rpc/internal/config"
+	"github.com/xh-polaris/account-rpc/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/internal/model/mockmodel"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
 	"testing"
 	"time"
 

@@ -6,7 +6,7 @@ package account
 import (
 	"context"
 
-	"github.com/xh-polaris/account-rpc/v3/pb"
+	"github.com/xh-polaris/account-rpc/pb"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
