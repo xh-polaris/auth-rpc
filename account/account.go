@@ -5,7 +5,7 @@ package account
 
 import (
 	"context"
-	pb2 "github.com/xh-polaris/account-rpc/pb"
+	pb2 "github.com/xh-polaris/account-rpc/v2/pb"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"

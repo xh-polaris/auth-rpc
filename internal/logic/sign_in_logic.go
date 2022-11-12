@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/xh-polaris/account-rpc/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/internal/model"
-	"github.com/xh-polaris/account-rpc/internal/svc"
-	"github.com/xh-polaris/account-rpc/pb"
+	"github.com/xh-polaris/account-rpc/v2/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/v2/internal/model"
+	"github.com/xh-polaris/account-rpc/v2/internal/svc"
+	"github.com/xh-polaris/account-rpc/v2/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"

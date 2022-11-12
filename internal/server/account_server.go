@@ -5,9 +5,9 @@ package server
 
 import (
 	"context"
-	logic2 "github.com/xh-polaris/account-rpc/internal/logic"
-	"github.com/xh-polaris/account-rpc/internal/svc"
-	pb2 "github.com/xh-polaris/account-rpc/pb"
+	logic2 "github.com/xh-polaris/account-rpc/v2/internal/logic"
+	"github.com/xh-polaris/account-rpc/v2/internal/svc"
+	pb2 "github.com/xh-polaris/account-rpc/v2/pb"
 )
 
 type AccountServer struct {
