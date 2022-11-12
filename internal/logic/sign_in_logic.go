@@ -3,10 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-	"github.com/xh-polaris/account-rpc/v2/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/v2/internal/model"
-	"github.com/xh-polaris/account-rpc/v2/internal/svc"
-	"github.com/xh-polaris/account-rpc/v2/pb"
+	"github.com/xh-polaris/account-rpc/v3/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/v3/internal/model"
+	"github.com/xh-polaris/account-rpc/v3/internal/svc"
+	"github.com/xh-polaris/account-rpc/v3/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -53,14 +53,14 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 	userModel := l.svcCtx.UserModel
 
 	// 检查是否设置了验证码，若设置了检查验证码是否合法
-	ok, err := l.checkVerifyCode(in.Options, in.AuthValue)
+	ok, err := l.checkVerifyCode(in.Params, in.AuthId)
 	if err != nil {
 		return "", err
 	}
 
 	auth := model2.Auth{
 		Type:  in.AuthType,
-		Value: in.AuthValue,
+		Value: in.AuthId,
 	}
 	user, err := userModel.FindOneByAuth(l.ctx, auth)
 
@@ -108,7 +108,7 @@ func (l *SignInLogic) checkVerifyCode(opts []string, authValue string) (bool, er
 }
 
 func (l *SignInLogic) signInByWechat(in *pb.SignInReq) (string, error) {
-	opts := in.Options
+	opts := in.Params
 	if len(opts) < 1 {
 		return "", errorx.ErrInvalidArgument
 	}
@@ -125,7 +125,7 @@ func (l *SignInLogic) signInByWechat(in *pb.SignInReq) (string, error) {
 	userModel := l.svcCtx.UserModel
 	auth := model2.Auth{
 		Type:  in.AuthType,
-		Value: in.AuthValue,
+		Value: in.AuthId,
 	}
 	user, err := userModel.FindOneByAuth(l.ctx, auth)
 	switch err {
