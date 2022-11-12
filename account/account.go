@@ -5,20 +5,19 @@ package account
 
 import (
 	"context"
-
-	"github.com/xh-polaris/account-svc/rpc/pb"
+	pb2 "github.com/xh-polaris/account-rpc/pb"
 
 	"github.com/zeromicro/go-zero/zrpc"
 	"google.golang.org/grpc"
 )
 
 type (
-	SendVerifyCodeReq  = pb.SendVerifyCodeReq
-	SendVerifyCodeResp = pb.SendVerifyCodeResp
-	SetPasswordReq     = pb.SetPasswordReq
-	SetPasswordResp    = pb.SetPasswordResp
-	SignInReq          = pb.SignInReq
-	SignInResp         = pb.SignInResp
+	SendVerifyCodeReq  = pb2.SendVerifyCodeReq
+	SendVerifyCodeResp = pb2.SendVerifyCodeResp
+	SetPasswordReq     = pb2.SetPasswordReq
+	SetPasswordResp    = pb2.SetPasswordResp
+	SignInReq          = pb2.SignInReq
+	SignInResp         = pb2.SignInResp
 
 	Account interface {
 		SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInResp, error)
@@ -38,16 +37,16 @@ func NewAccount(cli zrpc.Client) Account {
 }
 
 func (m *defaultAccount) SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInResp, error) {
-	client := pb.NewAccountClient(m.cli.Conn())
+	client := pb2.NewAccountClient(m.cli.Conn())
 	return client.SignIn(ctx, in, opts...)
 }
 
 func (m *defaultAccount) SetPassword(ctx context.Context, in *SetPasswordReq, opts ...grpc.CallOption) (*SetPasswordResp, error) {
-	client := pb.NewAccountClient(m.cli.Conn())
+	client := pb2.NewAccountClient(m.cli.Conn())
 	return client.SetPassword(ctx, in, opts...)
 }
 
 func (m *defaultAccount) SendVerifyCode(ctx context.Context, in *SendVerifyCodeReq, opts ...grpc.CallOption) (*SendVerifyCodeResp, error) {
-	client := pb.NewAccountClient(m.cli.Conn())
+	client := pb2.NewAccountClient(m.cli.Conn())
 	return client.SendVerifyCode(ctx, in, opts...)
 }

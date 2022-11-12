@@ -4,6 +4,10 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"github.com/xh-polaris/account-rpc/internal/config"
+	"github.com/xh-polaris/account-rpc/internal/server"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -12,11 +16,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
-
-	"github.com/xh-polaris/account-svc/rpc/internal/config"
-	"github.com/xh-polaris/account-svc/rpc/internal/server"
-	"github.com/xh-polaris/account-svc/rpc/internal/svc"
-	"github.com/xh-polaris/account-svc/rpc/pb"
 )
 
 var configFile = flag.String("f", "etc/account.yaml", "the config file")
