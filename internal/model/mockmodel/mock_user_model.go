@@ -6,10 +6,10 @@ package mockmodel
 
 import (
 	context "context"
+	"github.com/xh-polaris/account-rpc/internal/model"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	model "github.com/xh-polaris/account-svc/model"
 )
 
 // MockUserModel is a mock of UserModel interface.

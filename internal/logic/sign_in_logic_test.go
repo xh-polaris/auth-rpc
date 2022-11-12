@@ -2,6 +2,12 @@ package logic
 
 import (
 	"context"
+	"github.com/xh-polaris/account-rpc/internal/config"
+	"github.com/xh-polaris/account-rpc/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/internal/model/mockmodel"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
 	"testing"
 	"time"
 
@@ -10,13 +16,6 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/zeromicro/go-zero/core/stores/redis"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
-	"github.com/xh-polaris/account-svc/mock/mockmodel"
-	"github.com/xh-polaris/account-svc/model"
-	"github.com/xh-polaris/account-svc/rpc/errorx"
-	"github.com/xh-polaris/account-svc/rpc/internal/config"
-	"github.com/xh-polaris/account-svc/rpc/internal/svc"
-	"github.com/xh-polaris/account-svc/rpc/pb"
 )
 
 func TestSignInLogic_SignIn(t *testing.T) {
@@ -49,8 +48,8 @@ func TestSignInLogic_SignIn(t *testing.T) {
 
 		t.Run("no such user", func(t *testing.T) {
 			userModel.EXPECT().
-				FindOneByAuth(gomock.Any(), model.Auth{Type: "phone", Value: "12306"}).
-				Return(nil, model.ErrNotFound).
+				FindOneByAuth(gomock.Any(), model2.Auth{Type: "phone", Value: "12306"}).
+				Return(nil, model2.ErrNotFound).
 				Times(1)
 
 			_, err := l.SignIn(&pb.SignInReq{
@@ -63,13 +62,13 @@ func TestSignInLogic_SignIn(t *testing.T) {
 		})
 		t.Run("wrong password", func(t *testing.T) {
 			userModel.EXPECT().
-				FindOneByAuth(gomock.Any(), model.Auth{Type: "phone", Value: "12306"}).
-				Return(&model.User{
+				FindOneByAuth(gomock.Any(), model2.Auth{Type: "phone", Value: "12306"}).
+				Return(&model2.User{
 					ID:       primitive.NewObjectID(),
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$KTaZRvmPE2MUfVOhjofOou8UgKAZEIkCftj3//iRFQCOpnAfLiDl2",
-					Auth:     []model.Auth{{"phone", "12306"}},
+					Auth:     []model2.Auth{{"phone", "12306"}},
 				}, nil).
 				Times(2)
 
@@ -90,13 +89,13 @@ func TestSignInLogic_SignIn(t *testing.T) {
 		})
 		t.Run("auth by email and password", func(t *testing.T) {
 			userModel.EXPECT().
-				FindOneByAuth(gomock.Any(), model.Auth{Type: "email", Value: "123@abc.com"}).
-				Return(&model.User{
+				FindOneByAuth(gomock.Any(), model2.Auth{Type: "email", Value: "123@abc.com"}).
+				Return(&model2.User{
 					ID:       primitive.NewObjectID(),
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$KTaZRvmPE2MUfVOhjofOou8UgKAZEIkCftj3//iRFQCOpnAfLiDl2",
-					Auth:     []model.Auth{{"email", "123@abc.com"}},
+					Auth:     []model2.Auth{{"email", "123@abc.com"}},
 				}, nil).
 				Times(1)
 
@@ -111,21 +110,21 @@ func TestSignInLogic_SignIn(t *testing.T) {
 		})
 		t.Run("auth by email and verify code", func(t *testing.T) {
 			userModel.EXPECT().
-				FindOneByAuth(gomock.Any(), model.Auth{Type: "email", Value: "123@abc.com"}).
-				Return(nil, model.ErrNotFound).
+				FindOneByAuth(gomock.Any(), model2.Auth{Type: "email", Value: "123@abc.com"}).
+				Return(nil, model2.ErrNotFound).
 				Times(1)
 			userModel.EXPECT().
 				Insert(gomock.Any(), gomock.Any()).
 				Return(nil).
 				Times(1)
 			userModel.EXPECT().
-				FindOneByAuth(gomock.Any(), model.Auth{Type: "email", Value: "123@abc.com"}).
-				Return(&model.User{
+				FindOneByAuth(gomock.Any(), model2.Auth{Type: "email", Value: "123@abc.com"}).
+				Return(&model2.User{
 					ID:       primitive.NewObjectID(),
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$vJaijEGmaM4hgMF/55heder6dsEh7B6P8SdMnoDOMbRCJtBv6xD32",
-					Auth:     []model.Auth{{"email", "123@abc.com"}},
+					Auth:     []model2.Auth{{"email", "123@abc.com"}},
 				}, nil).
 				Times(1)
 

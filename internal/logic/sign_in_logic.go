@@ -3,11 +3,10 @@ package logic
 import (
 	"context"
 	"errors"
-
-	"github.com/xh-polaris/account-svc/model"
-	"github.com/xh-polaris/account-svc/rpc/errorx"
-	"github.com/xh-polaris/account-svc/rpc/internal/svc"
-	"github.com/xh-polaris/account-svc/rpc/pb"
+	"github.com/xh-polaris/account-rpc/internal/errorx"
+	model2 "github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -35,11 +34,11 @@ func NewSignInLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignInLogi
 func (l *SignInLogic) SignIn(in *pb.SignInReq) (resp *pb.SignInResp, err error) {
 	resp = &pb.SignInResp{}
 	switch in.AuthType {
-	case model.EmailAuthType:
+	case model2.EmailAuthType:
 		fallthrough
-	case model.PhoneAuthType:
+	case model2.PhoneAuthType:
 		resp.UserId, err = l.signInByPassword(in)
-	case model.WechatAuthType:
+	case model2.WechatAuthType:
 		resp.UserId, err = l.signInByWechat(in)
 	default:
 		return nil, errorx.ErrInvalidArgument
@@ -59,7 +58,7 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 		return "", err
 	}
 
-	auth := model.Auth{
+	auth := model2.Auth{
 		Type:  in.AuthType,
 		Value: in.AuthValue,
 	}
@@ -67,12 +66,12 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 
 	switch err {
 	case nil:
-	case model.ErrNotFound:
+	case model2.ErrNotFound:
 		if !ok {
 			return "", errorx.ErrNoSuchUser
 		}
 
-		user = &model.User{Auth: []model.Auth{auth}}
+		user = &model2.User{Auth: []model2.Auth{auth}}
 		err := userModel.Insert(l.ctx, user)
 		if err != nil {
 			return "", err
@@ -124,16 +123,16 @@ func (l *SignInLogic) signInByWechat(in *pb.SignInReq) (string, error) {
 	}
 
 	userModel := l.svcCtx.UserModel
-	auth := model.Auth{
+	auth := model2.Auth{
 		Type:  in.AuthType,
 		Value: in.AuthValue,
 	}
 	user, err := userModel.FindOneByAuth(l.ctx, auth)
 	switch err {
 	case nil:
-	case model.ErrNotFound:
-		user = &model.User{Auth: []model.Auth{auth}}
-		err := userModel.Insert(l.ctx, &model.User{})
+	case model2.ErrNotFound:
+		user = &model2.User{Auth: []model2.Auth{auth}}
+		err := userModel.Insert(l.ctx, &model2.User{})
 		if err != nil {
 			return "", err
 		}

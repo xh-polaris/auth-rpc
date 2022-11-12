@@ -14,8 +14,8 @@ ADD go.mod .
 ADD go.sum .
 RUN go mod download
 COPY . .
-COPY ./rpc/etc /app/etc
-RUN go build -ldflags="-s -w" -o /app/rpc ./rpc
+COPY ./etc /app/etc
+RUN go build -ldflags="-s -w" -o /app/account .
 
 
 FROM scratch
@@ -25,7 +25,7 @@ COPY --from=builder /usr/share/zoneinfo/Asia/Shanghai /usr/share/zoneinfo/Asia/S
 ENV TZ Asia/Shanghai
 
 WORKDIR /app
-COPY --from=builder /app/rpc /app/rpc
+COPY --from=builder /app/account /app/account
 COPY --from=builder /app/etc /app/etc
 
-CMD ["./rpc", "-f", "etc/account.yaml"]
+CMD ["./account", "-f", "etc/account.yaml"]

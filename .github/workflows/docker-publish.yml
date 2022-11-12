@@ -16,16 +16,11 @@ on:
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
-    strategy:
-      matrix:
-        image:
-          - name: ${{ github.repository_owner }}/account-api
-            path: api/Dockerfile
-          - name: ${{ github.repository_owner }}/account-rpc
-            path: rpc/Dockerfile
 
     runs-on: ubuntu-latest
     permissions:
@@ -68,7 +63,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: ${{ env.REGISTRY }}/${{ matrix.image.name }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -79,6 +74,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          file: ${{ matrix.image.path }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

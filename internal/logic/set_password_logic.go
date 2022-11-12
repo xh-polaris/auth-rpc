@@ -2,12 +2,11 @@ package logic
 
 import (
 	"context"
-	"github.com/xh-polaris/account-svc/model"
-	"github.com/xh-polaris/account-svc/rpc/errorx"
+	"github.com/xh-polaris/account-rpc/internal/errorx"
+	"github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
 	"golang.org/x/crypto/bcrypt"
-
-	"github.com/xh-polaris/account-svc/rpc/internal/svc"
-	"github.com/xh-polaris/account-svc/rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/logx"
 )
