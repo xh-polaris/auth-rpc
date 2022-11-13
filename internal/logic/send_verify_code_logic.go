@@ -2,10 +2,12 @@ package logic
 
 import (
 	"context"
+
 	"github.com/xh-polaris/account-rpc/internal/errorx"
 	"github.com/xh-polaris/account-rpc/internal/model"
 	"github.com/xh-polaris/account-rpc/internal/svc"
 	"github.com/xh-polaris/account-rpc/pb"
+
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -33,7 +35,7 @@ func (l *SendVerifyCodeLogic) SendVerifyCode(in *pb.SendVerifyCodeReq) (*pb.Send
 	default:
 		return nil, errorx.ErrInvalidArgument
 	}
-	err := l.svcCtx.Redis.Hset(VerifyCodeKey, in.AuthValue, verifyCode)
+	err := l.svcCtx.Redis.Hset(VerifyCodeKey, in.AuthId, verifyCode)
 	if err != nil {
 		return nil, err
 	}

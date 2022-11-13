@@ -3,8 +3,9 @@ package logic
 import (
 	"context"
 	"errors"
+
 	"github.com/xh-polaris/account-rpc/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/internal/model"
 	"github.com/xh-polaris/account-rpc/internal/svc"
 	"github.com/xh-polaris/account-rpc/pb"
 
@@ -34,11 +35,11 @@ func NewSignInLogic(ctx context.Context, svcCtx *svc.ServiceContext) *SignInLogi
 func (l *SignInLogic) SignIn(in *pb.SignInReq) (resp *pb.SignInResp, err error) {
 	resp = &pb.SignInResp{}
 	switch in.AuthType {
-	case model2.EmailAuthType:
+	case model.EmailAuthType:
 		fallthrough
-	case model2.PhoneAuthType:
+	case model.PhoneAuthType:
 		resp.UserId, err = l.signInByPassword(in)
-	case model2.WechatAuthType:
+	case model.WechatAuthType:
 		resp.UserId, err = l.signInByWechat(in)
 	default:
 		return nil, errorx.ErrInvalidArgument
@@ -58,7 +59,7 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 		return "", err
 	}
 
-	auth := model2.Auth{
+	auth := model.Auth{
 		Type:  in.AuthType,
 		Value: in.AuthId,
 	}
@@ -66,12 +67,12 @@ func (l *SignInLogic) signInByPassword(in *pb.SignInReq) (string, error) {
 
 	switch err {
 	case nil:
-	case model2.ErrNotFound:
+	case model.ErrNotFound:
 		if !ok {
 			return "", errorx.ErrNoSuchUser
 		}
 
-		user = &model2.User{Auth: []model2.Auth{auth}}
+		user = &model.User{Auth: []model.Auth{auth}}
 		err := userModel.Insert(l.ctx, user)
 		if err != nil {
 			return "", err
@@ -123,16 +124,16 @@ func (l *SignInLogic) signInByWechat(in *pb.SignInReq) (string, error) {
 	}
 
 	userModel := l.svcCtx.UserModel
-	auth := model2.Auth{
+	auth := model.Auth{
 		Type:  in.AuthType,
 		Value: in.AuthId,
 	}
 	user, err := userModel.FindOneByAuth(l.ctx, auth)
 	switch err {
 	case nil:
-	case model2.ErrNotFound:
-		user = &model2.User{Auth: []model2.Auth{auth}}
-		err := userModel.Insert(l.ctx, &model2.User{})
+	case model.ErrNotFound:
+		user = &model.User{Auth: []model.Auth{auth}}
+		err := userModel.Insert(l.ctx, &model.User{})
 		if err != nil {
 			return "", err
 		}
