@@ -1,6 +1,7 @@
 package svc
 
 import (
+	"github.com/silenceper/wechat/v2/cache"
 	"github.com/xh-polaris/account-rpc/internal/config"
 	"github.com/xh-polaris/account-rpc/internal/model"
 
@@ -30,6 +31,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		MiniProgram: wechat.NewWechat().GetMiniProgram(&mpConfig.Config{
 			AppID:     c.MiniProgram.AppID,
 			AppSecret: c.MiniProgram.AppSecret,
+			Cache:     cache.NewMemory(),
 		}),
 	}
 }

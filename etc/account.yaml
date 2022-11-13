@@ -6,7 +6,7 @@ Log:
 Mongo:
   URL: $MONGO_URL
   DB: $MONGO_DB
-CacheRedis:
+CacheConf:
   -
     Host: $CACHE_REDIS_HOST
     Pass: $CACHE_REDIS_PASS
