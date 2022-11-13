@@ -24,7 +24,7 @@ message SetPasswordResp {}
 
 message SendVerifyCodeReq {
   string authType = 1;
-  string authValue = 2;
+  string authId = 2;
 }
 
 message SendVerifyCodeResp {}

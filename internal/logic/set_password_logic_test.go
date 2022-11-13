@@ -2,16 +2,17 @@ package logic
 
 import (
 	"context"
-	"github.com/alicebob/miniredis/v2"
-	"github.com/xh-polaris/account-rpc/internal/config"
-	"github.com/xh-polaris/account-rpc/internal/errorx"
-	model2 "github.com/xh-polaris/account-rpc/internal/model"
-	"github.com/xh-polaris/account-rpc/internal/model/mockmodel"
-	"github.com/xh-polaris/account-rpc/internal/svc"
-	"github.com/xh-polaris/account-rpc/pb"
 	"testing"
 	"time"
 
+	"github.com/xh-polaris/account-rpc/internal/config"
+	"github.com/xh-polaris/account-rpc/internal/errorx"
+	"github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/account-rpc/internal/model/mockmodel"
+	"github.com/xh-polaris/account-rpc/internal/svc"
+	"github.com/xh-polaris/account-rpc/pb"
+
+	"github.com/alicebob/miniredis/v2"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/zeromicro/go-zero/core/stores/redis"
@@ -36,7 +37,7 @@ func TestSetPasswordLogic_SetPassword(t *testing.T) {
 	t.Run("no such user", func(t *testing.T) {
 		userModel.EXPECT().
 			FindOne(gomock.Any(), "123").
-			Return(nil, model2.ErrNotFound).
+			Return(nil, model.ErrNotFound).
 			Times(1)
 
 		_, err := l.SetPassword(&pb.SetPasswordReq{
@@ -49,7 +50,7 @@ func TestSetPasswordLogic_SetPassword(t *testing.T) {
 		id := primitive.NewObjectID()
 		userModel.EXPECT().
 			FindOne(gomock.Any(), id.Hex()).
-			Return(&model2.User{
+			Return(&model.User{
 				ID:       id,
 				UpdateAt: time.Now(),
 				CreateAt: time.Now(),

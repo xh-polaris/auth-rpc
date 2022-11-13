@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+
 	"github.com/xh-polaris/account-rpc/internal/config"
 	"github.com/xh-polaris/account-rpc/internal/server"
 	"github.com/xh-polaris/account-rpc/internal/svc"
