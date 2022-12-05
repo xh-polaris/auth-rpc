@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-var configFile = flag.String("f", "etc/auth.yaml", "the config file")
+var configFile = flag.String("f", "etc/authentication.yaml", "the config file")
 
 func main() {
 	flag.Parse()

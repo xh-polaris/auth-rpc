@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: auth.proto
+// source: authentication.proto
 
 package pb
 
@@ -37,7 +37,7 @@ func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 
 func (c *authClient) SignIn(ctx context.Context, in *SignInReq, opts ...grpc.CallOption) (*SignInResp, error) {
 	out := new(SignInResp)
-	err := c.cc.Invoke(ctx, "/authentication.Auth/signIn", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/auth.Auth/signIn", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *authClient) SignIn(ctx context.Context, in *SignInReq, opts ...grpc.Cal
 
 func (c *authClient) SetPassword(ctx context.Context, in *SetPasswordReq, opts ...grpc.CallOption) (*SetPasswordResp, error) {
 	out := new(SetPasswordResp)
-	err := c.cc.Invoke(ctx, "/authentication.Auth/setPassword", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/auth.Auth/setPassword", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (c *authClient) SetPassword(ctx context.Context, in *SetPasswordReq, opts .
 
 func (c *authClient) SendVerifyCode(ctx context.Context, in *SendVerifyCodeReq, opts ...grpc.CallOption) (*SendVerifyCodeResp, error) {
 	out := new(SendVerifyCodeResp)
-	err := c.cc.Invoke(ctx, "/authentication.Auth/sendVerifyCode", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/auth.Auth/sendVerifyCode", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func _Auth_SignIn_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/authentication.Auth/signIn",
+		FullMethod: "/auth.Auth/signIn",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).SignIn(ctx, req.(*SignInReq))
@@ -126,7 +126,7 @@ func _Auth_SetPassword_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/authentication.Auth/setPassword",
+		FullMethod: "/auth.Auth/setPassword",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).SetPassword(ctx, req.(*SetPasswordReq))
@@ -144,7 +144,7 @@ func _Auth_SendVerifyCode_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/authentication.Auth/sendVerifyCode",
+		FullMethod: "/auth.Auth/sendVerifyCode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).SendVerifyCode(ctx, req.(*SendVerifyCodeReq))
@@ -156,7 +156,7 @@ func _Auth_SendVerifyCode_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Auth_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "authentication.Auth",
+	ServiceName: "auth.Auth",
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -173,5 +173,5 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "auth.proto",
+	Metadata: "authentication.proto",
 }

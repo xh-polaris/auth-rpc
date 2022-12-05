@@ -15,7 +15,7 @@ ADD go.sum .
 RUN go mod download
 COPY . .
 COPY ./etc /app/etc
-RUN go build -ldflags="-s -w -X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn" -o /app/auth .
+RUN go build -ldflags="-s -w" -o /app/auth .
 
 
 FROM scratch
@@ -28,4 +28,4 @@ WORKDIR /app
 COPY --from=builder /app/auth /app/auth
 COPY --from=builder /app/etc /app/etc
 
-CMD ["./auth", "-f", "etc/auth.yaml"]
+CMD ["./auth", "-f", "etc/authentication.yaml"]
