@@ -1,4 +1,4 @@
-module github.com/xh-polaris/account-rpc
+module github.com/xh-polaris/auth-rpc
 
 go 1.18
 

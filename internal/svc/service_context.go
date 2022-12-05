@@ -2,8 +2,8 @@ package svc
 
 import (
 	"github.com/silenceper/wechat/v2/cache"
-	"github.com/xh-polaris/account-rpc/internal/config"
-	"github.com/xh-polaris/account-rpc/internal/model"
+	"github.com/xh-polaris/auth-rpc/internal/config"
+	"github.com/xh-polaris/auth-rpc/internal/model"
 
 	"github.com/silenceper/wechat/v2"
 	"github.com/silenceper/wechat/v2/miniprogram"

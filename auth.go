@@ -5,10 +5,10 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/xh-polaris/account-rpc/internal/config"
-	"github.com/xh-polaris/account-rpc/internal/server"
-	"github.com/xh-polaris/account-rpc/internal/svc"
-	"github.com/xh-polaris/account-rpc/pb"
+	"github.com/xh-polaris/auth-rpc/internal/config"
+	"github.com/xh-polaris/auth-rpc/internal/server"
+	"github.com/xh-polaris/auth-rpc/internal/svc"
+	"github.com/xh-polaris/auth-rpc/pb"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-var configFile = flag.String("f", "etc/account.yaml", "the config file")
+var configFile = flag.String("f", "etc/auth.yaml", "the config file")
 
 func main() {
 	flag.Parse()
@@ -29,7 +29,7 @@ func main() {
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		pb.RegisterAccountServer(grpcServer, server.NewAccountServer(ctx))
+		pb.RegisterAuthServer(grpcServer, server.NewAuthServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)

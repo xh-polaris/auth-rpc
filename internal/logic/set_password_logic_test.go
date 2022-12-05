@@ -5,12 +5,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/xh-polaris/account-rpc/internal/config"
-	"github.com/xh-polaris/account-rpc/internal/errorx"
-	"github.com/xh-polaris/account-rpc/internal/model"
-	"github.com/xh-polaris/account-rpc/internal/model/mockmodel"
-	"github.com/xh-polaris/account-rpc/internal/svc"
-	"github.com/xh-polaris/account-rpc/pb"
+	"github.com/xh-polaris/auth-rpc/internal/config"
+	"github.com/xh-polaris/auth-rpc/internal/errorx"
+	"github.com/xh-polaris/auth-rpc/internal/model"
+	"github.com/xh-polaris/auth-rpc/internal/model/mockmodel"
+	"github.com/xh-polaris/auth-rpc/internal/svc"
+	"github.com/xh-polaris/auth-rpc/pb"
 
 	"github.com/alicebob/miniredis/v2"
 	"github.com/golang/mock/gomock"
