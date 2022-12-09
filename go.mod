@@ -9,7 +9,7 @@ require (
 	github.com/silenceper/wechat/v2 v2.1.4
 	github.com/stretchr/testify v1.8.1
 	github.com/zeromicro/go-zero v1.4.2
-	go.mongodb.org/mongo-driver v1.11.0
+	go.mongodb.org/mongo-driver v1.11.1
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
 	google.golang.org/grpc v1.51.0
 	google.golang.org/protobuf v1.28.1
