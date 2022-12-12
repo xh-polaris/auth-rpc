@@ -81,7 +81,7 @@ func TestSignInLogic_SignIn(t *testing.T) {
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$KTaZRvmPE2MUfVOhjofOou8UgKAZEIkCftj3//iRFQCOpnAfLiDl2",
-					Auth:     []model.Auth{{"phone", "12306"}},
+					Auth:     []model.Auth{{Type: "phone", Value: "12306"}},
 				}, nil).
 				Times(2)
 
@@ -108,7 +108,7 @@ func TestSignInLogic_SignIn(t *testing.T) {
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$KTaZRvmPE2MUfVOhjofOou8UgKAZEIkCftj3//iRFQCOpnAfLiDl2",
-					Auth:     []model.Auth{{"email", "123@abc.com"}},
+					Auth:     []model.Auth{{Type: "email", Value: "123@abc.com"}},
 				}, nil).
 				Times(1)
 
@@ -137,7 +137,7 @@ func TestSignInLogic_SignIn(t *testing.T) {
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$vJaijEGmaM4hgMF/55heder6dsEh7B6P8SdMnoDOMbRCJtBv6xD32",
-					Auth:     []model.Auth{{"email", "123@abc.com"}},
+					Auth:     []model.Auth{{Type: "email", Value: "123@abc.com"}},
 				}, nil).
 				Times(1)
 
@@ -200,7 +200,7 @@ func TestSignInLogic_SignIn(t *testing.T) {
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "may not be important",
-					Auth:     []model.Auth{{"wechat", authId}},
+					Auth:     []model.Auth{{Type: "wechat", Value: authId}},
 				}, nil).
 				Times(1)
 
@@ -242,7 +242,7 @@ func TestSignInLogic_SignIn(t *testing.T) {
 					UpdateAt: time.Now(),
 					CreateAt: time.Now(),
 					Password: "$2a$10$vJaijEGmaM4hgMF/55heder6dsEh7B6P8SdMnoDOMbRCJtBv6xD32",
-					Auth:     []model.Auth{{"wechat", authId}},
+					Auth:     []model.Auth{{Type: "wechat", Value: authId}},
 				}, nil).
 				Times(1)
 
