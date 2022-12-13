@@ -28,4 +28,10 @@ jobs:
         with:
           version: v1.49.0
       - name: go test
-        run: go test -gcflags=all=-l ./...
+        run: go test -gcflags=all=-l -coverprofile=cover.out ./...
+      - name: report to deepsource
+        run: |
+          curl https://deepsource.io/cli | sh
+          ./bin/deepsource report --analyzer test-coverage --key go --value-file ./cover.out
+        env:
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}
