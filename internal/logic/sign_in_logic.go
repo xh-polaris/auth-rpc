@@ -126,7 +126,7 @@ func (l *SignInLogic) signInByWechat(in *pb.SignInReq) (string, error) {
 	userModel := l.svcCtx.UserModel
 	auth := model.Auth{
 		Type:  in.AuthType,
-		Value: in.AuthId,
+		Value: res.UnionID,
 	}
 	user, err := userModel.FindOneByAuth(l.ctx, auth)
 	switch err {
