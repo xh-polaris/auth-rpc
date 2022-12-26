@@ -133,7 +133,7 @@ func (l *SignInLogic) signInByWechat(in *pb.SignInReq) (string, error) {
 	case nil:
 	case model.ErrNotFound:
 		user = &model.User{Auth: []model.Auth{auth}}
-		err := userModel.Insert(l.ctx, &model.User{})
+		err := userModel.Insert(l.ctx, user)
 		if err != nil {
 			return "", err
 		}
