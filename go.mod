@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/alicebob/miniredis/v2 v2.23.1
-	github.com/bytedance/mockey v1.0.0-rc.0
+	github.com/bytedance/mockey v1.0.0
 	github.com/golang/mock v1.6.0
 	github.com/silenceper/wechat/v2 v2.1.4
 	github.com/stretchr/testify v1.8.1
